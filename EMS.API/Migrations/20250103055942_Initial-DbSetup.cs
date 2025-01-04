@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace EmpAPI.Migrations
+namespace EMS.API.Migrations
 {
     /// <inheritdoc />
     public partial class InitialDbSetup : Migration
@@ -15,11 +15,10 @@ namespace EmpAPI.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: false)
+                    EmployeeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,22 +26,19 @@ namespace EmpAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmpAttendances",
+                name: "Attendances",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsPresent = table.Column<bool>(type: "bit", nullable: false),
-                    IsAbsent = table.Column<bool>(type: "bit", nullable: false),
-                    IsOffday = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmpAttendances", x => x.Id);
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmpAttendances_Employees_EmployeeId",
+                        name: "FK_Attendances_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
@@ -50,8 +46,8 @@ namespace EmpAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmpAttendances_EmployeeId",
-                table: "EmpAttendances",
+                name: "IX_Attendances_EmployeeId",
+                table: "Attendances",
                 column: "EmployeeId");
         }
 
@@ -59,7 +55,7 @@ namespace EmpAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmpAttendances");
+                name: "Attendances");
 
             migrationBuilder.DropTable(
                 name: "Employees");
