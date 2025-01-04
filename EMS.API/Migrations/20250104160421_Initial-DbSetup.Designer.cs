@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMS.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250103055942_Initial-DbSetup")]
+    [Migration("20250104160421_Initial-DbSetup")]
     partial class InitialDbSetup
     {
         /// <inheritdoc />
@@ -55,16 +55,21 @@ namespace EMS.API.Migrations
 
                     b.Property<string>("EmployeeCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeCode")
+                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -72,12 +77,17 @@ namespace EMS.API.Migrations
             modelBuilder.Entity("Emp.Domain.Entities.Attendance", b =>
                 {
                     b.HasOne("Emp.Domain.Entities.Employee", "Employees")
-                        .WithMany()
+                        .WithMany("Attendances")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Emp.Domain.Entities.Employee", b =>
+                {
+                    b.Navigation("Attendances");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,8 +16,8 @@ namespace EMS.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    EmployeeCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -49,6 +49,12 @@ namespace EMS.API.Migrations
                 name: "IX_Attendances_EmployeeId",
                 table: "Attendances",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_EmployeeCode",
+                table: "Employees",
+                column: "EmployeeCode",
+                unique: true);
         }
 
         /// <inheritdoc />

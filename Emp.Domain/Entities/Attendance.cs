@@ -13,8 +13,11 @@ namespace Emp.Domain.Entities
 
         public virtual Employee Employees { get; private set; }
 
-        public Attendance(Guid employeeId, DateTime date, AttendanceStatus status)
+        public Attendance() { }
+
+        public Attendance(Guid id, Guid employeeId, DateTime date, AttendanceStatus status)
         {
+            Id = id;
             EmployeeId = employeeId;
             Date = date;
             Status = status;

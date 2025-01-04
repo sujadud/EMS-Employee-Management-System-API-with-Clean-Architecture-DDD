@@ -6,12 +6,17 @@ namespace Emp.Domain.Entities
     {
         [Key]
         public Guid Id { get; private set; }
-        public string Name { get; private set; } = string.Empty;
-        public string EmployeeCode { get; private set; } = string.Empty;
+        public string Name { get; private set; }
+        public string EmployeeCode { get; private set; }
         public decimal Salary { get; private set; }
 
-        public Employee(string name, string employeeCode, decimal salary)
+        public virtual ICollection<Attendance> Attendances { get; set; }
+
+        public Employee() { }
+
+        public Employee(Guid id, string name, string employeeCode, decimal salary)
         {
+            Id = id;
             Name = name;
             EmployeeCode = employeeCode;
             Salary = salary;
