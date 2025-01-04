@@ -1,0 +1,14 @@
+@EMS.API_HostAddress = https://localhost:7275
+
+GET {{EMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{EMS.API_HostAddress}}/api/employee/salary
+
+###
+
+GET {{EMS.API_HostAddress}}/api/attendance/attendanceReport?startDate=2025-01-01T16%3A20%3A52.4787881%2B00%3A00&endDate=2025-01-04T16%3A20%3A52.4787881%2B00%3A00
+
+###
