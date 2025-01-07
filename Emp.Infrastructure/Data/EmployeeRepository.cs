@@ -32,6 +32,6 @@ namespace Emp.Infrastructure.Data
             await _context.Employees.AddAsync(employee);
 
         public async Task UpdateAsync(Employee employee) =>
-            _context.Employees.Update(employee);
+            _context.Employees.Update(employee).Context.SaveChanges();
     }
 }
