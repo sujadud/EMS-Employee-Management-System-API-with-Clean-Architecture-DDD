@@ -23,7 +23,7 @@ namespace Emp.Application.UseCases
             var attendanceRecords = await _attendanceRepository.GetAttendanceReportAsync(startDate, endDate);
             return attendanceRecords.GroupBy(a => a.EmployeeId).Select(group => new AttendanceReportDTO
             {
-                EmployeeName = group.First().Employees.Name,
+                EmployeeName = group.First().Employee.Name,
                 MonthName = startDate.ToString("MMMM"),
                 TotalPresent = group.Count(a => a.Status == AttendanceStatus.Present),
                 TotalAbsent = group.Count(a => a.Status == AttendanceStatus.Absent),

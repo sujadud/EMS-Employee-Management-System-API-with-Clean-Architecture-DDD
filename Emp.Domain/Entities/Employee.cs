@@ -10,7 +10,7 @@ namespace Emp.Domain.Entities
         public string EmployeeCode { get; private set; }
         public decimal Salary { get; private set; }
 
-        public virtual ICollection<Attendance> Attendances { get; set; }
+        public ICollection<Attendance> Attendances { get; set; }
 
         public Employee() { }
 

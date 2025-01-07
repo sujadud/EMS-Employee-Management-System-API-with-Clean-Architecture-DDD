@@ -17,8 +17,6 @@ namespace Emp.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             // Fluent API config
             modelBuilder.Entity<Employee>(entity =>
             {
@@ -26,6 +24,12 @@ namespace Emp.Infrastructure.Database
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.EmployeeCode).IsRequired().HasMaxLength(10);
                 entity.HasIndex(e => e.EmployeeCode).IsUnique(); // Unique
+
+                // Foreign Key - Many 2 one relationship
+                entity.HasMany(e => e.Attendances)
+                        .WithOne(a => a.Employee)
+                        .HasForeignKey(a => a.EmployeeId)
+                        .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Attendance>(entity =>
@@ -35,11 +39,12 @@ namespace Emp.Infrastructure.Database
                 entity.Property(a => a.Status).IsRequired();
 
                 // Foreign Key - One 2 many relationship
-                entity.HasOne(a => a.Employees)
+                entity.HasOne(a => a.Employee)
                       .WithMany(e => e.Attendances)
-                      .HasForeignKey(a => a.EmployeeId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                      .HasForeignKey(a => a.EmployeeId);
             });
+
+            base.OnModelCreating(modelBuilder);
 
             //// Seed Data
             var employee1Id = Guid.NewGuid();

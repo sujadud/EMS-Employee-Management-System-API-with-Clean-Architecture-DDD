@@ -11,7 +11,7 @@ namespace Emp.Domain.Entities
         public DateTime Date { get; private set; }
         public AttendanceStatus Status { get; private set; }
 
-        public virtual Employee Employees { get; private set; }
+        public Employee Employee { get; private set; }
 
         public Attendance() { }
 
