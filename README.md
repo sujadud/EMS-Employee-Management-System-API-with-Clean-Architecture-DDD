@@ -65,7 +65,7 @@ The EMS solution adheres to the Clean Architecture structure, consisting of the 
 	- Update the connection string in `appsettings.json` to point to your SQL Server instance:
 		```
 	    "ConnectionStrings": {
-	      "DefaultConnection": "Server=your-server;Database=EMS;MultipleActiveResult Sets=True;TrustServerCertificate=True"
+	      "DefaultConnection": "Server=your-server;Database=EMS;MultipleActiveResultSets=True;TrustServerCertificate=True"
 	    }
 3. **Apply Migrations**:
 	- Create and update the database with seed data:
