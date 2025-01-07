@@ -27,6 +27,6 @@ namespace Emp.Infrastructure.Data
                 _context.Attendances.Any(a => a.EmployeeId == e.Id && a.Status == AttendanceStatus.Absent)).ToListAsync();
 
         public async Task<IEnumerable<Attendance>> GetAttendanceReportAsync(DateTime startDate, DateTime endDate) =>
-            await _context.Attendances.Where(a => a.Date >= startDate && a.Date <= endDate).ToListAsync();
+            await _context.Attendances.Include(a => a.Employee).Where(a => a.Date >= startDate && a.Date <= endDate).ToListAsync();
     }
 }
